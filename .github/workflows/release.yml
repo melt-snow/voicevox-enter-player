@@ -41,8 +41,17 @@ jobs:
           "bin/Release/net8.0-windows/win-x64/publish/VoicevoxEnterPlayer.exe"
           "VoicevoxEnterPlayer-${{ github.ref_name }}-win-x64.exe"
 
+      - name: Build installer (Inno Setup)
+        shell: pwsh
+        run: >
+          & "C:\Program Files (x86)\Inno Setup 6\ISCC.exe"
+          "/DVERSION=${{ steps.version.outputs.VERSION }}"
+          installer.iss
+
       - name: Create release and upload
         uses: softprops/action-gh-release@3bb12739c298aeb8a4eeaf626c5b8d85266b0e65 # v2
         with:
-          files: VoicevoxEnterPlayer-${{ github.ref_name }}-win-x64.exe
+          files: |
+            VoicevoxEnterPlayer-${{ github.ref_name }}-win-x64.exe
+            installer-out/VoicevoxEnterPlayer-Setup-v${{ steps.version.outputs.VERSION }}.exe
           generate_release_notes: true

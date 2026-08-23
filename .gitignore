@@ -44,6 +44,7 @@ ScaffoldingReadMe.txt
 *~
 .vs/
 .omo/
+installer-out/
 CodeCoverage/
 
 # MSBuild Binary and Structured Log
